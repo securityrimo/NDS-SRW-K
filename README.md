@@ -99,8 +99,10 @@ tools/
   _inject_arm9.py    / _inject_credits.py    주입 (arm9 / 크레딧)
   _redraw2.py        ★ 타이틀 로고 OBJ 스프라이트 한글 재작도 (2D 매핑)
   _inject_title.py   / _inject_title3.py    타이틀 #2360 재인코딩·재주입
+  _export_png.py     / _import_png.py    로고 PNG 추출/주입 (직접 편집용, display-lossless)
   _eyepreview.py     아이캐치를 실제 게임 폰트로 렌더 (데모)
 docs/images/         결과 스크린샷
+title_logo/          타이틀 로고 직접 편집용 PNG 캔버스 + 영역 가이드 (편집법 README 포함)
 ```
 
 ## 사용법
