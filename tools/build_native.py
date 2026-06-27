@@ -42,6 +42,8 @@ def nodes_equal(json_ko, dec_nodes):
 
 MAX_LINES = 3   # the on-screen dialogue box shows at most 3 lines (verified: the
 #               shipped KR/JP scenario never has a node with >3 sub-lines)
+SAFE_WIDTH = MAX_LENGTH - 8   # reflow target with margin under the 176 game cap, so
+#                               no line sits at the very edge (defensive vs freeze)
 
 
 def reflow(lines, limit=MAX_LENGTH):
@@ -110,10 +112,10 @@ def json_to_nodes(json_ko, subs=None, splits=None):
         # line breaks; otherwise re-flow into the fewest <=176 lines and, if that
         # is still > MAX_LINES, split into balanced <=3-line continuation boxes
         # (same speaker/name; only the FIRST keeps the original c2/event + sec).
-        if len(clean) <= MAX_LINES and all(get_byte_count(l) <= MAX_LENGTH for l in clean):
+        if len(clean) <= MAX_LINES and all(get_byte_count(l) <= SAFE_WIDTH for l in clean):
             groups = [clean]
         else:
-            groups = chunk_balanced(reflow(clean, MAX_LENGTH), MAX_LINES)
+            groups = chunk_balanced(reflow(clean, SAFE_WIDTH), MAX_LINES)
             if len(groups) > 1 and splits is not None:
                 splits.append((j, len(groups)))
         for gi, g in enumerate(groups):
